@@ -5,7 +5,7 @@ function sleep(ms) {
 }
 
 function resetArray() {
-    array = Array(30).fill().map(() => Math.round(Math.random() * 100));
+    array = Array(23).fill().map(() => Math.round(Math.random() * 100));
     var data = "";
 
     for (let index = 0; index < array.length; index++) {
@@ -21,21 +21,27 @@ async function bubbleSort() {
 
     for (outer = nElems - 1; outer > 1; outer--) {
         for (inner = 0; inner < outer; inner++) {
-            if (array[inner] > array[inner + 1])
+            if (array[inner] > array[inner + 1]) {
                 document.getElementById(inner).className = "progress-bar bg-warning";
                 document.getElementById(inner + 1).className = "progress-bar bg-warning";
-                //await sleep(500);
-                swap(inner, inner + 1);
+                swap(inner, inner + 1, outer);
+                await sleep(500);
             }
+        }
     }
 }
 
-function swap(one, two) {
+function swap(one, two, outer) {
     var temp = array[one];
+
     array[one] = array[two];
-    //document.getElementById(one).style = 'width: ' + array[two] + '%"';
-    $('#' + one).attr('aria-valuenow', array[two]).css('width', array[two]+'%').text(array[two]);
-    
+    $('#' + one).attr('aria-valuenow', array[one]).css('width', array[one] + '%').text(array[one]);
     array[two] = temp;
-    $('#' + two).attr('aria-valuenow', array[temp]).css('width', array[temp]+'%').text(array[temp]);
+    $('#' + two).attr('aria-valuenow', array[two]).css('width', array[two] + '%').text(array[two]);
+
+    if (one == outer) {
+        document.getElementById(one).className = "progress-bar bg-success";
+    } else if (two == outer) {
+        document.getElementById(two).className = "progress-bar bg-success";
+    }
 }
