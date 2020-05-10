@@ -69,14 +69,14 @@ async function bubbleSort() {
             // Change the color of the two bars being compared to orange.
             document.getElementById(inner).className = "progress-bar bg-warning";
             document.getElementById(inner + 1).className = "progress-bar bg-warning";
-            await sleep(10);
+            await sleep(20);
 
             if (array[inner] > array[inner + 1]) {
                 swap(inner, inner + 1, outer);
                 // If two bars are being swapped change their color to red.
                 document.getElementById(inner).className = "progress-bar bg-danger";
                 document.getElementById(inner + 1).className = "progress-bar bg-danger";
-                await sleep(10);
+                await sleep(20);
             }
             // Change the two bars back to blue.
             document.getElementById(inner).className = "progress-bar";
@@ -139,13 +139,13 @@ async function partitionIt(left, right, pivot, pivotIndex) {
     while (true) {
         while (array[++leftPtr] < pivot) { // find bigger item
             document.getElementById(leftPtr).className = "progress-bar bg-warning";
-            await sleep(50);
+            await sleep(20);
             document.getElementById(leftPtr).className = "progress-bar";
         }
 
         while (rightPtr > 0 && array[--rightPtr] > pivot) { // find smaller item
             document.getElementById(rightPtr).className = "progress-bar bg-warning";
-            await sleep(50);
+            await sleep(20);
             document.getElementById(rightPtr).className = "progress-bar";
         }
 
@@ -155,7 +155,7 @@ async function partitionIt(left, right, pivot, pivotIndex) {
             // If two bars are being swapped change their color to red.
             document.getElementById(leftPtr).className = "progress-bar bg-danger";
             document.getElementById(rightPtr).className = "progress-bar bg-danger";
-            await sleep(50);
+            await sleep(20);
             swap(leftPtr, rightPtr); // swap elements
         }
         // Change the two bars back to blue.
