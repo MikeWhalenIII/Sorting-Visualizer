@@ -21,6 +21,7 @@ function resetArray() {
             '<div class="progress-bar" id="' + index + '" role="progressbar" style="width: ' + array[index] + '%; transition:none; " aria-valuenow="' + array[index] + '" aria-valuemin="0" aria-valuemax="110">' + array[index] + '</div></div>';
     }
     document.getElementById("arrayBars").innerHTML = data;
+    console.log(array);
 }
 
 /**
@@ -37,6 +38,9 @@ async function sort(sortingMethod) {
         await bubbleSort();
     } else if (sortingMethod == 'merge') {
         await mergeSort();
+    } else if (sortingMethod == 'quick') {
+        await quickSort();
+        console.log('sorted: ' + array);
     }
 
     // Once the sorting has completed change bars from blue to green to signify completion.
@@ -52,6 +56,9 @@ async function sort(sortingMethod) {
     $("#buttons").children().prop('disabled', false);
 }
 
+/**
+ * Bubble Sort
+ */
 async function bubbleSort() {
     var outer = "", inner = "";
     var nElems = array.length;
@@ -95,6 +102,66 @@ function swap(one, two, outer) {
     $('#' + two).attr('aria-valuenow', array[two]).css('width', array[two] + '%').text(array[two]);
 }
 
+/**
+ * Merge Sort
+ */
 async function mergeSort() {
     //TODO
+}
+
+/**
+ * Quick Sort
+ */
+async function quickSort() {
+    var nElems = array.length;
+    await recQuickSort(0, nElems - 1);
+}
+
+async function recQuickSort(left, right) {
+    if (right - left <= 0) {
+        return;
+    } else {
+        var pivot = array[right];
+
+        var pivotLocation = await partitionIt(left, right, pivot, right);
+        await recQuickSort(left, pivotLocation - 1); // Sort left side
+        await recQuickSort(pivotLocation + 1, right); // Sort right side
+    }
+}
+
+async function partitionIt(left, right, pivot, pivotIndex) {
+    var leftPtr = left - 1;
+    var rightPtr = right;
+
+    // Change the color of the pivot points to dark grey.
+    document.getElementById(pivotIndex).className = "progress-bar bg-dark";
+
+    while (true) {
+        while (array[++leftPtr] < pivot) { // find bigger item
+            document.getElementById(leftPtr).className = "progress-bar bg-warning";
+            await sleep(50);
+            document.getElementById(leftPtr).className = "progress-bar";
+        }
+
+        while (rightPtr > 0 && array[--rightPtr] > pivot) { // find smaller item
+            document.getElementById(rightPtr).className = "progress-bar bg-warning";
+            await sleep(50);
+            document.getElementById(rightPtr).className = "progress-bar";
+        }
+
+        if (leftPtr >= rightPtr) { // if pointers cross, partition done
+            break;
+        } else {
+            // If two bars are being swapped change their color to red.
+            document.getElementById(leftPtr).className = "progress-bar bg-danger";
+            document.getElementById(rightPtr).className = "progress-bar bg-danger";
+            await sleep(50);
+            swap(leftPtr, rightPtr); // swap elements
+        }
+        // Change the two bars back to blue.
+        document.getElementById(leftPtr).className = "progress-bar";
+        document.getElementById(rightPtr).className = "progress-bar";
+    }
+    swap(leftPtr, right); // restore pivot
+    return leftPtr; // return pivot location
 }
