@@ -13,7 +13,7 @@ function sleep(ms) {
  * This function populates the array and renders the array bars.
  */
 function resetArray() {
-    array = Array(44).fill().map(() => Math.round(Math.random() * 99) + 1);
+    array = Array(48).fill().map(() => Math.round(Math.random() * 99) + 1);
     var data = "";
 
     for (let index = 0; index < array.length; index++) {
@@ -31,7 +31,7 @@ function resetArray() {
  */
 async function sort(sortingMethod) {
     // Disable buttons during sort
-    $("#buttons").children().prop('disabled', true);
+    $(':button').prop('disabled', true);
 
     // Call sorting methods
     if (sortingMethod == 'bubble') {
@@ -40,7 +40,6 @@ async function sort(sortingMethod) {
         await mergeSort();
     } else if (sortingMethod == 'quick') {
         await quickSort();
-        console.log('sorted: ' + array);
     }
 
     // Once the sorting has completed change bars from blue to green to signify completion.
@@ -53,7 +52,7 @@ async function sort(sortingMethod) {
     }
 
     // Enable buttons once sorting has been completed
-    $("#buttons").children().prop('disabled', false);
+    $(':button').prop('disabled', false);
 }
 
 /**
