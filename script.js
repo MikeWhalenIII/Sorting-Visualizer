@@ -1,4 +1,14 @@
 var array;
+var barHeight = 17; // Initial bar height
+var numElements = 45; // Initial value
+var sortingSpeed = 20; // Initial Sorting Speed
+
+function updateSlider(slideAmount) {
+    numElements = slideAmount;
+    barHeight = (150 / slideAmount) * 4;
+    sortingSpeed = Math.round((101 / slideAmount) * 5);
+    resetArray();
+}
 
 /**
  * This function is used to slow down the sorting methods.
@@ -13,12 +23,13 @@ function sleep(ms) {
  * This function populates the array and renders the array bars.
  */
 function resetArray() {
-    array = Array(45).fill().map(() => Math.round(Math.random() * 99) + 1);
+    array = Array(100).fill().map(() => Math.round(Math.random() * 99) + 1);
+    array.length = numElements;
     var data = "";
 
     for (let index = 0; index < array.length; index++) {
-        data += '<div class="progress bg-transparent" style="margin-bottom: 2px">' +
-            '<div class="progress-bar" id="' + index + '" role="progressbar" style="width: ' + array[index] + '%; transition:none; " aria-valuenow="' + array[index] + '" aria-valuemin="0" aria-valuemax="110">' + array[index] + '</div></div>';
+        data += '<div class="progress bg-transparent" style="height: ' + barHeight + 'px; margin-bottom: 2px">' +
+            '<div class="progress-bar" id="' + index + '" role="progressbar" style="width: ' + array[index] + '%; transition:none; " aria-valuenow="' + array[index] + '" aria-valuemin="0" aria-valuemax="110"></div></div>';
     }
     document.getElementById("arrayBars").innerHTML = data;
     console.log(array);
@@ -32,6 +43,7 @@ function resetArray() {
 async function sort(sortingMethod) {
     // Disable buttons during sort
     $(':button').prop('disabled', true);
+    $('#arraySlider').prop('disabled', true);
 
     // Call sorting methods
     if (sortingMethod == 'bubble') {
@@ -53,6 +65,7 @@ async function sort(sortingMethod) {
 
     // Enable buttons once sorting has been completed
     $(':button').prop('disabled', false);
+    $('#arraySlider').prop('disabled', false);
 }
 
 /**
@@ -68,14 +81,14 @@ async function bubbleSort() {
             // Change the color of the two bars being compared to orange.
             document.getElementById(inner).className = "progress-bar bg-warning";
             document.getElementById(inner + 1).className = "progress-bar bg-warning";
-            await sleep(20);
+            await sleep(sortingSpeed);
 
             if (array[inner] > array[inner + 1]) {
                 swap(inner, inner + 1, outer);
                 // If two bars are being swapped change their color to red.
                 document.getElementById(inner).className = "progress-bar bg-danger";
                 document.getElementById(inner + 1).className = "progress-bar bg-danger";
-                await sleep(20);
+                await sleep(sortingSpeed);
             }
             // Change the two bars back to blue.
             document.getElementById(inner).className = "progress-bar";
@@ -95,10 +108,10 @@ function swap(one, two, outer) {
     var temp = array[one];
 
     array[one] = array[two];
-    $('#' + one).attr('aria-valuenow', array[one]).css('width', array[one] + '%').text(array[one]);
+    $('#' + one).attr('aria-valuenow', array[one]).css('width', array[one] + '%');
 
     array[two] = temp;
-    $('#' + two).attr('aria-valuenow', array[two]).css('width', array[two] + '%').text(array[two]);
+    $('#' + two).attr('aria-valuenow', array[two]).css('width', array[two] + '%');
 }
 
 /**
@@ -138,13 +151,13 @@ async function partitionIt(left, right, pivot, pivotIndex) {
     while (true) {
         while (array[++leftPtr] < pivot) { // find bigger item
             document.getElementById(leftPtr).className = "progress-bar bg-warning";
-            await sleep(20);
+            await sleep(sortingSpeed);
             document.getElementById(leftPtr).className = "progress-bar";
         }
 
         while (rightPtr > 0 && array[--rightPtr] > pivot) { // find smaller item
             document.getElementById(rightPtr).className = "progress-bar bg-warning";
-            await sleep(20);
+            await sleep(sortingSpeed);
             document.getElementById(rightPtr).className = "progress-bar";
         }
 
@@ -154,7 +167,7 @@ async function partitionIt(left, right, pivot, pivotIndex) {
             // If two bars are being swapped change their color to red.
             document.getElementById(leftPtr).className = "progress-bar bg-danger";
             document.getElementById(rightPtr).className = "progress-bar bg-danger";
-            await sleep(20);
+            await sleep(sortingSpeed);
             swap(leftPtr, rightPtr); // swap elements
         }
         // Change the two bars back to blue.
