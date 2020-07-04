@@ -13,7 +13,7 @@ function sleep(ms) {
  * This function populates the array and renders the array bars.
  */
 function resetArray() {
-    array = Array(48).fill().map(() => Math.round(Math.random() * 99) + 1);
+    array = Array(45).fill().map(() => Math.round(Math.random() * 99) + 1);
     var data = "";
 
     for (let index = 0; index < array.length; index++) {
