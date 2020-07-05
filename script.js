@@ -1,6 +1,6 @@
 var array;
-var barHeight = 17; // Initial bar height
-var numElements = 45; // Initial value
+var barHeight = 15; // Initial bar height
+var numElements = 50; // Initial value
 var sortingSpeed = 20; // Initial Sorting Speed
 
 function updateSlider(slideAmount) {
