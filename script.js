@@ -118,7 +118,7 @@ function swap(one, two, outer) {
  * Merge Sort
  */
 async function mergeSort() {
-    //TODO
+    
 }
 
 async function recMergeSort() {
@@ -126,7 +126,7 @@ async function recMergeSort() {
 }
 
 async function merge() {
-    
+
 }
 
 /**
