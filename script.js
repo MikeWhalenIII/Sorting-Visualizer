@@ -118,10 +118,17 @@ function swap(one, two, outer) {
  * Merge Sort
  */
 async function mergeSort() {
-    
+    var nElems = array.length;
+    await recMergeSort(0, nElems - 1);
 }
 
-async function recMergeSort() {
+async function recMergeSort(lowerBound, upperBound) {
+    if(lowerBound == upperBound) {
+        return;
+    } else {
+        
+    }
+
 
 }
 
