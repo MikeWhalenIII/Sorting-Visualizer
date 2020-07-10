@@ -119,21 +119,25 @@ function swap(one, two, outer) {
  */
 async function mergeSort() {
     var nElems = array.length;
-    await recMergeSort(0, nElems - 1);
+    var helperArray = new Array(array.length);
+
+    await recMergeSort(helperArray, 0, nElems - 1);
 }
 
 async function recMergeSort(lowerBound, upperBound) {
-    if(lowerBound == upperBound) {
+    if (lowerBound == upperBound) {
         return;
     } else {
+        var mid = (lowerBound + upperBound) / 2;
         
+        recMergeSort(helperArray, lowerBound, mid);
+        recMergeSort(helpArray, mid + 1, upperBound);
+        merge(helperArray, lowerBound, mid + 1, upperBound);
     }
-
-
 }
 
 async function merge() {
-
+    
 }
 
 /**
