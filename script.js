@@ -116,30 +116,54 @@ function swap(one, two, outer) {
 
 /**
  * Merge Sort
-
+ */
 async function mergeSort() {
     var nElems = array.length;
     var helperArray = new Array(array.length);
 
     await recMergeSort(helperArray, 0, nElems - 1);
+    console.log(array);
 }
 
-async function recMergeSort(lowerBound, upperBound) {
+async function recMergeSort(helperArray, lowerBound, upperBound) {
     if (lowerBound == upperBound) {
         return;
     } else {
         var mid = (lowerBound + upperBound) / 2;
         
         recMergeSort(helperArray, lowerBound, mid);
-        recMergeSort(helpArray, mid + 1, upperBound);
+        recMergeSort(helperArray, mid + 1, upperBound);
         merge(helperArray, lowerBound, mid + 1, upperBound);
     }
 }
 
-async function merge() {
+async function merge(helperArray, lowPtr, highPtr, upperBound) {
+    var i = 0; // helperArray index
+    var lowerBound = lowPtr;
+    var mid = highPtr - 1;
+    var numItems = upperBound - lowerBound + 1;
 
+    while(lowPtr <= mid && highPtr <= upperBound) {
+        if(array[lowPtr] < array[highPtr]) {
+            helperArray[i++] = array[lowPtr++];
+        } else {
+            helperArray[i++] = array[highPtr++];
+        }
+    }
+
+    while (lowPtr <= mid) {
+        helperArray[i++] = array[lowPtr++];
+    }
+
+    while (highPtr <= upperBound) {
+        helperArray[i++] = array[highPtr++];
+    }
+
+    for(i = 0; i < numItems; i++) {
+        array[lowerBound + i] = helperArray[i];
+    }
 }
- */
+
 
 /**
  * Quick Sort
