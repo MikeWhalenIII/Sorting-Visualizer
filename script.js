@@ -116,10 +116,30 @@ function swap(one, two, outer) {
 
 /**
  * Merge Sort
- */
+
 async function mergeSort() {
-    //TODO
+    var nElems = array.length;
+    var helperArray = new Array(array.length);
+
+    await recMergeSort(helperArray, 0, nElems - 1);
 }
+
+async function recMergeSort(lowerBound, upperBound) {
+    if (lowerBound == upperBound) {
+        return;
+    } else {
+        var mid = (lowerBound + upperBound) / 2;
+        
+        recMergeSort(helperArray, lowerBound, mid);
+        recMergeSort(helpArray, mid + 1, upperBound);
+        merge(helperArray, lowerBound, mid + 1, upperBound);
+    }
+}
+
+async function merge() {
+
+}
+ */
 
 /**
  * Quick Sort
