@@ -116,7 +116,7 @@ function swap(one, two, outer) {
 
 /**
  * Merge Sort
- */
+
 async function mergeSort() {
     var nElems = array.length;
     var helperArray = new Array(array.length);
@@ -137,8 +137,9 @@ async function recMergeSort(lowerBound, upperBound) {
 }
 
 async function merge() {
-    
+
 }
+ */
 
 /**
  * Quick Sort
