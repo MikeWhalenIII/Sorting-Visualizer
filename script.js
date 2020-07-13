@@ -129,7 +129,8 @@ async function recMergeSort(helperArray, lowerBound, upperBound) {
     if (lowerBound == upperBound) {
         return;
     } else {
-        var mid = Math.round((lowerBound + upperBound) / 2);
+        var mid = Math.floor((lowerBound + upperBound) / 2);
+        console.log(mid);
         
         recMergeSort(helperArray, lowerBound, mid);
         recMergeSort(helperArray, mid + 1, upperBound);
