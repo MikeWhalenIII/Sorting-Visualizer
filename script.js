@@ -6,7 +6,7 @@ var sortingSpeed = 20; // Initial Sorting Speed
 function updateSlider(slideAmount) {
     numElements = slideAmount;
     barHeight = (150 / slideAmount) * 4;
-    sortingSpeed = Math.round((101 / slideAmount) * 5);
+    sortingSpeed = Math.round((101 / slideAmount) * 9);
     resetArray();
 }
 
