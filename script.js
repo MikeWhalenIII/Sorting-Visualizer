@@ -130,11 +130,10 @@ async function recMergeSort(helperArray, lowerBound, upperBound) {
         return;
     } else {
         var mid = Math.floor((lowerBound + upperBound) / 2);
-        console.log(mid);
         
-        recMergeSort(helperArray, lowerBound, mid);
-        recMergeSort(helperArray, mid + 1, upperBound);
-        merge(helperArray, lowerBound, mid + 1, upperBound);
+        await recMergeSort(helperArray, lowerBound, mid);
+        await recMergeSort(helperArray, mid + 1, upperBound);
+        await merge(helperArray, lowerBound, mid + 1, upperBound);
     }
 }
 
@@ -146,23 +145,35 @@ async function merge(helperArray, lowPtr, highPtr, upperBound) {
 
     while(lowPtr <= mid && highPtr <= upperBound) {
         if(array[lowPtr] < array[highPtr]) {
+            // Change the color of the two elements being compared to orange
+            document.getElementById(lowPtr).className = "progress-bar bg-warning";
+            document.getElementById(highPtr).className = "progress-bar bg-warning";
+            await sleep(sortingSpeed);
+
             helperArray[i++] = array[lowPtr++];
+            $('#' + i).attr('aria-valuenow', helperArray[i]).css('width', helperArray[i] + '%');
         } else {
             helperArray[i++] = array[highPtr++];
+            $('#' + i).attr('aria-valuenow', helperArray[i]).css('width', helperArray[i] + '%');
         }
     }
 
     while (lowPtr <= mid) {
         helperArray[i++] = array[lowPtr++];
+        $('#' + i).attr('aria-valuenow', helperArray[i]).css('width', helperArray[i] + '%');
+        await sleep(sortingSpeed);
     }
 
     while (highPtr <= upperBound) {
         helperArray[i++] = array[highPtr++];
-        document.getElementById(highPtr).className = "progress-bar bg-success";
+        $('#' + i).attr('aria-valuenow', helperArray[i]).css('width', helperArray[i] + '%');
+        
+        await sleep(sortingSpeed);
     }
 
     for(i = 0; i < numItems; i++) {
         array[lowerBound + i] = helperArray[i];
+        await sleep(sortingSpeed);
     }
 }
 
