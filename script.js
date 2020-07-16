@@ -158,6 +158,7 @@ async function merge(helperArray, lowPtr, highPtr, upperBound) {
 
     while (highPtr <= upperBound) {
         helperArray[i++] = array[highPtr++];
+        document.getElementById(highPtr).className = "progress-bar bg-success";
     }
 
     for(i = 0; i < numItems; i++) {
