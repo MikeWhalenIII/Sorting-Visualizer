@@ -5,8 +5,8 @@ The **Sorting Visualizer** is a website that visually shows how various sorting 
 
 ## Sorting Algorithms
 * Bubble Sort
+* Merge Sort
 * Quick Sort
-* *More coming soon*
 
 
 ## Live Demo
