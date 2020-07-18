@@ -32,7 +32,7 @@ function resetArray() {
             '<div class="progress-bar" id="' + index + '" role="progressbar" style="width: ' + array[index] + '%; transition:none; " aria-valuenow="' + array[index] + '" aria-valuemin="0" aria-valuemax="110"></div></div>';
     }
     document.getElementById("arrayBars").innerHTML = data;
-    console.log(array);
+    console.log("Unsorted Array[" + numElements + "] " + array);
 }
 
 /**
@@ -62,6 +62,7 @@ async function sort(sortingMethod) {
     for (let index = 0; index < array.length; index++) {
         document.getElementById(index).className = "progress-bar bg-success";
     }
+    console.log("Sorted Array: " + array);
 
     // Enable buttons once sorting has been completed
     $(':button').prop('disabled', false);
@@ -122,8 +123,6 @@ async function mergeSort() {
     var helperArray = new Array(array.length);
 
     await recMergeSort(helperArray, 0, nElems - 1);
-    console.log("Original Sorted Array: " + array);
-    console.log("Helper Sorted Array: " + helperArray);
 }
 
 async function recMergeSort(helperArray, lowerBound, upperBound) {
@@ -149,7 +148,7 @@ async function merge(helperArray, lowPtr, highPtr, upperBound) {
             // Change the color of the two elements being compared to orange
             document.getElementById(lowPtr).className = "progress-bar bg-warning";
             document.getElementById(highPtr).className = "progress-bar bg-warning";
-            await sleep(30);
+            await sleep(10);
             document.getElementById(lowPtr).className = "progress-bar";
             document.getElementById(highPtr).className = "progress-bar";
 
@@ -162,12 +161,10 @@ async function merge(helperArray, lowPtr, highPtr, upperBound) {
 
     while (lowPtr <= mid) {
         helperArray[i++] = array[lowPtr++];
-        await sleep(sortingSpeed);
     }
 
     while (highPtr <= upperBound) {
         helperArray[i++] = array[highPtr++];
-        await sleep(sortingSpeed);
     }
 
     for(i = 0; i < numItems; i++) {
