@@ -122,7 +122,8 @@ async function mergeSort() {
     var helperArray = new Array(array.length);
 
     await recMergeSort(helperArray, 0, nElems - 1);
-    console.log(array);
+    console.log("Original Sorted Array: " + array);
+    console.log("Helper Sorted Array: " + helperArray);
 }
 
 async function recMergeSort(helperArray, lowerBound, upperBound) {
@@ -148,31 +149,30 @@ async function merge(helperArray, lowPtr, highPtr, upperBound) {
             // Change the color of the two elements being compared to orange
             document.getElementById(lowPtr).className = "progress-bar bg-warning";
             document.getElementById(highPtr).className = "progress-bar bg-warning";
-            await sleep(sortingSpeed);
+            await sleep(30);
+            document.getElementById(lowPtr).className = "progress-bar";
+            document.getElementById(highPtr).className = "progress-bar";
 
             helperArray[i++] = array[lowPtr++];
-            $('#' + i).attr('aria-valuenow', helperArray[i]).css('width', helperArray[i] + '%');
         } else {
             helperArray[i++] = array[highPtr++];
-            $('#' + i).attr('aria-valuenow', helperArray[i]).css('width', helperArray[i] + '%');
         }
+        await sleep(sortingSpeed);
     }
 
     while (lowPtr <= mid) {
         helperArray[i++] = array[lowPtr++];
-        $('#' + i).attr('aria-valuenow', helperArray[i]).css('width', helperArray[i] + '%');
         await sleep(sortingSpeed);
     }
 
     while (highPtr <= upperBound) {
         helperArray[i++] = array[highPtr++];
-        $('#' + i).attr('aria-valuenow', helperArray[i]).css('width', helperArray[i] + '%');
-        
         await sleep(sortingSpeed);
     }
 
     for(i = 0; i < numItems; i++) {
         array[lowerBound + i] = helperArray[i];
+        $('#' + (lowerBound + i)).attr('aria-valuenow', array[lowerBound + i]).css('width', array[lowerBound + i] + '%');
         await sleep(sortingSpeed);
     }
 }
