@@ -76,19 +76,19 @@ async function bubbleSort() {
     var outer = "", inner = "";
     var nElems = array.length;
 
-    for (outer = nElems - 1; outer > 1; outer--) {
+    for (outer = nElems - 1; outer > 0; outer--) {
         for (inner = 0; inner < outer; inner++) {
-
             // Change the color of the two bars being compared to orange.
             document.getElementById(inner).className = "progress-bar bg-warning";
             document.getElementById(inner + 1).className = "progress-bar bg-warning";
             await sleep(sortingSpeed);
 
             if (array[inner] > array[inner + 1]) {
-                swap(inner, inner + 1, outer);
                 // If two bars are being swapped change their color to red.
                 document.getElementById(inner).className = "progress-bar bg-danger";
                 document.getElementById(inner + 1).className = "progress-bar bg-danger";
+
+                swap(inner, inner + 1);
                 await sleep(sortingSpeed);
             }
             // Change the two bars back to blue.
@@ -103,9 +103,11 @@ async function bubbleSort() {
             }
         }
     }
+
+
 }
 
-function swap(one, two, outer) {
+function swap(one, two) {
     var temp = array[one];
 
     array[one] = array[two];
@@ -130,7 +132,7 @@ async function recMergeSort(helperArray, lowerBound, upperBound) {
         return;
     } else {
         var mid = Math.floor((lowerBound + upperBound) / 2);
-        
+
         await recMergeSort(helperArray, lowerBound, mid);
         await recMergeSort(helperArray, mid + 1, upperBound);
         await merge(helperArray, lowerBound, mid + 1, upperBound);
@@ -143,8 +145,8 @@ async function merge(helperArray, lowPtr, highPtr, upperBound) {
     var mid = highPtr - 1;
     var numItems = upperBound - lowerBound + 1;
 
-    while(lowPtr <= mid && highPtr <= upperBound) {
-        if(array[lowPtr] < array[highPtr]) {
+    while (lowPtr <= mid && highPtr <= upperBound) {
+        if (array[lowPtr] < array[highPtr]) {
             // Change the color of the two elements being compared to orange
             document.getElementById(lowPtr).className = "progress-bar bg-warning";
             document.getElementById(highPtr).className = "progress-bar bg-warning";
@@ -167,7 +169,7 @@ async function merge(helperArray, lowPtr, highPtr, upperBound) {
         helperArray[i++] = array[highPtr++];
     }
 
-    for(i = 0; i < numItems; i++) {
+    for (i = 0; i < numItems; i++) {
         array[lowerBound + i] = helperArray[i];
         $('#' + (lowerBound + i)).attr('aria-valuenow', array[lowerBound + i]).css('width', array[lowerBound + i] + '%');
         await sleep(sortingSpeed);
