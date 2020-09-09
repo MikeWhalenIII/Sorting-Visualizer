@@ -150,23 +150,27 @@ async function merge(helperArray, lowPtr, highPtr, upperBound) {
             // Change the color of the two elements being compared to orange
             document.getElementById(lowPtr).className = "progress-bar bg-warning";
             document.getElementById(highPtr).className = "progress-bar bg-warning";
-            await sleep(10);
+            await sleep(75);
             document.getElementById(lowPtr).className = "progress-bar";
             document.getElementById(highPtr).className = "progress-bar";
 
             helperArray[i++] = array[lowPtr++];
+            await sleep(sortingSpeed);
         } else {
             helperArray[i++] = array[highPtr++];
+            await sleep(sortingSpeed);
         }
-        await sleep(sortingSpeed);
+        
     }
 
     while (lowPtr <= mid) {
         helperArray[i++] = array[lowPtr++];
+        await sleep(sortingSpeed);
     }
 
     while (highPtr <= upperBound) {
         helperArray[i++] = array[highPtr++];
+        await sleep(sortingSpeed);
     }
 
     for (i = 0; i < numItems; i++) {
