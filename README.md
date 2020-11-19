@@ -16,7 +16,6 @@ The **Sorting Visualizer** is a website that visually shows how various sorting 
 ## Technology
 * HTML
 * JavaScript
-  * jQuery
 * CSS
   * BootStrap
 
